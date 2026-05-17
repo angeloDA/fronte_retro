@@ -67,17 +67,6 @@ h1 {
   max-width: 9ch;
 }
 
-.mode-switch {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  padding: 6px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.74);
-}
-
-.mode-button,
 .primary-action {
   min-height: 48px;
   border: 0;
@@ -85,15 +74,14 @@ h1 {
   cursor: pointer;
 }
 
-.mode-button {
-  color: var(--muted);
-  background: transparent;
-  font-weight: 720;
-}
-
-.mode-button.is-active {
-  color: #fff;
-  background: var(--ink);
+.secondary-action {
+  min-height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--ink);
+  background: var(--panel);
+  cursor: pointer;
+  font-weight: 740;
 }
 
 .converter {
@@ -109,7 +97,8 @@ h1 {
   border: 0;
 }
 
-.input-panel.is-hidden {
+.input-panel.is-hidden,
+.pdf-prompt.is-hidden {
   display: none;
 }
 
@@ -136,6 +125,120 @@ h1 {
 
 .drop-zone input {
   width: 100%;
+}
+
+.preview-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #07131f;
+  touch-action: none;
+}
+
+.preview-card.is-hidden {
+  display: none;
+}
+
+.preview-card canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.corner-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.corner-overlay polygon {
+  fill: rgba(20, 108, 148, 0.18);
+  stroke: #ffffff;
+  stroke-width: 4;
+  vector-effect: non-scaling-stroke;
+}
+
+.corner-overlay circle {
+  cursor: grab;
+  fill: var(--accent);
+  stroke: #ffffff;
+  stroke-width: 4;
+  vector-effect: non-scaling-stroke;
+}
+
+.corner-overlay circle:active {
+  cursor: grabbing;
+}
+
+.camera-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 12px;
+  padding: max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right))
+    max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+  background: #07131f;
+}
+
+.camera-sheet.is-hidden {
+  display: none;
+}
+
+.camera-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #000;
+}
+
+.camera-video,
+.camera-sample,
+.camera-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.camera-video {
+  object-fit: contain;
+}
+
+.camera-sample {
+  display: none;
+}
+
+.camera-overlay polygon {
+  fill: rgba(20, 108, 148, 0.2);
+  stroke: #ffffff;
+  stroke-width: 4;
+  vector-effect: non-scaling-stroke;
+}
+
+.camera-overlay circle {
+  fill: var(--accent);
+  stroke: #ffffff;
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.camera-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.camera-actions .text-action {
+  justify-self: center;
+  color: #ffffff;
 }
 
 .settings {
@@ -183,6 +286,24 @@ output {
 .primary-action:disabled {
   cursor: wait;
   opacity: 0.72;
+}
+
+.pdf-prompt,
+.text-action {
+  width: fit-content;
+  justify-self: center;
+  padding: 0;
+  border: 0;
+  color: var(--accent-strong);
+  background: transparent;
+  cursor: pointer;
+  font-weight: 740;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.text-action {
+  justify-self: start;
 }
 
 .status {

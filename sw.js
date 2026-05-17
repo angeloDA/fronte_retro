@@ -5,6 +5,7 @@ const APP_SHELL = [
   "styles.css",
   "app.js",
   "vendor/pdf-lib.min.js",
+  "vendor/opencv.js",
   "manifest.webmanifest",
   "icon.svg",
 ];

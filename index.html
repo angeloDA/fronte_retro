@@ -8,6 +8,7 @@
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="stylesheet" href="styles.css" />
     <script src="vendor/pdf-lib.min.js" defer></script>
+    <script src="vendor/opencv.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -18,35 +19,37 @@
           <h1 id="app-title">Unisci due lati in una pagina</h1>
         </div>
 
-        <div class="mode-switch" role="tablist" aria-label="Sorgente">
-          <button class="mode-button is-active" type="button" data-mode="pdf" role="tab" aria-selected="true">
-            PDF
-          </button>
-          <button class="mode-button" type="button" data-mode="images" role="tab" aria-selected="false">
-            Foto
-          </button>
-        </div>
-
         <form id="converter-form" class="converter">
-          <fieldset class="input-panel" data-panel="pdf">
+          <fieldset class="input-panel" data-panel="images">
+            <label class="drop-zone">
+              <span>Fronte</span>
+              <strong id="front-name">Scatta o seleziona il fronte</strong>
+              <input id="front-file" type="file" accept="image/jpeg,image/png" capture="environment" />
+            </label>
+            <button class="secondary-action" type="button" data-camera-open="front">Apri fotocamera fronte</button>
+            <div class="preview-card is-hidden" data-preview="front">
+              <canvas id="front-preview"></canvas>
+              <svg class="corner-overlay" data-overlay="front" aria-label="Regola i bordi del fronte"></svg>
+            </div>
+            <label class="drop-zone">
+              <span>Retro</span>
+              <strong id="back-name">Scatta o seleziona il retro</strong>
+              <input id="back-file" type="file" accept="image/jpeg,image/png" capture="environment" />
+            </label>
+            <button class="secondary-action" type="button" data-camera-open="back">Apri fotocamera retro</button>
+            <div class="preview-card is-hidden" data-preview="back">
+              <canvas id="back-preview"></canvas>
+              <svg class="corner-overlay" data-overlay="back" aria-label="Regola i bordi del retro"></svg>
+            </div>
+          </fieldset>
+
+          <fieldset class="input-panel is-hidden" data-panel="pdf">
             <label class="drop-zone">
               <span>PDF con almeno 2 pagine</span>
               <strong id="pdf-name">Seleziona PDF</strong>
               <input id="pdf-file" type="file" accept="application/pdf,.pdf" />
             </label>
-          </fieldset>
-
-          <fieldset class="input-panel is-hidden" data-panel="images">
-            <label class="drop-zone">
-              <span>Fronte</span>
-              <strong id="front-name">Seleziona foto fronte</strong>
-              <input id="front-file" type="file" accept="image/jpeg,image/png" capture="environment" />
-            </label>
-            <label class="drop-zone">
-              <span>Retro</span>
-              <strong id="back-name">Seleziona foto retro</strong>
-              <input id="back-file" type="file" accept="image/jpeg,image/png" capture="environment" />
-            </label>
+            <button class="text-action" type="button" data-open-camera>Usa la fotocamera</button>
           </fieldset>
 
           <section class="settings" aria-label="Impostazioni PDF">
@@ -66,9 +69,25 @@
           </section>
 
           <button id="convert-button" class="primary-action" type="submit">Crea PDF</button>
+
+          <button class="pdf-prompt" type="button" data-open-pdf>
+            Hai già un pdf con fronte retro in due pagine?
+          </button>
         </form>
 
         <p id="status" class="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="camera-sheet is-hidden" data-camera-sheet aria-label="Fotocamera documento">
+        <div class="camera-stage">
+          <video class="camera-video" data-camera-video autoplay playsinline muted></video>
+          <canvas class="camera-sample" data-camera-sample></canvas>
+          <svg class="camera-overlay" data-camera-overlay aria-hidden="true"></svg>
+        </div>
+        <div class="camera-actions">
+          <button class="text-action" type="button" data-camera-close>Annulla</button>
+          <button class="primary-action" type="button" data-camera-capture>Scatta</button>
+        </div>
       </section>
     </main>
   </body>

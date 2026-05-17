@@ -27,3 +27,6 @@ Da Android o iOS puoi usare "Aggiungi alla schermata Home" per installarla come 
 
 L'elaborazione avviene nel browser: i documenti non vengono caricati su un server.
 La libreria PDF e' salvata in `vendor/pdf-lib.min.js`, quindi l'app non dipende da CDN esterne.
+Il raddrizzamento prospettico usa OpenCV.js locale in `vendor/opencv.js` e conserva l'immagine a colori.
+Prima di creare il PDF puoi regolare i quattro angoli rilevati nell'anteprima.
+La fotocamera integrata mostra un overlay live del quadrilatero riconosciuto mentre inquadri.
