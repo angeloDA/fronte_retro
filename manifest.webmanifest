@@ -1,0 +1,17 @@
+{
+  "name": "Fronte Retro",
+  "short_name": "Fronte Retro",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#edf4f8",
+  "theme_color": "#16324f",
+  "description": "Crea un PDF a pagina singola da fronte e retro di un documento.",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

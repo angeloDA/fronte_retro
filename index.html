@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#16324f" />
+    <title>Fronte Retro</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="vendor/pdf-lib.min.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace" aria-labelledby="app-title">
+        <div class="title-block">
+          <p class="eyebrow">Documento fronte-retro</p>
+          <h1 id="app-title">Unisci due lati in una pagina</h1>
+        </div>
+
+        <div class="mode-switch" role="tablist" aria-label="Sorgente">
+          <button class="mode-button is-active" type="button" data-mode="pdf" role="tab" aria-selected="true">
+            PDF
+          </button>
+          <button class="mode-button" type="button" data-mode="images" role="tab" aria-selected="false">
+            Foto
+          </button>
+        </div>
+
+        <form id="converter-form" class="converter">
+          <fieldset class="input-panel" data-panel="pdf">
+            <label class="drop-zone">
+              <span>PDF con almeno 2 pagine</span>
+              <strong id="pdf-name">Seleziona PDF</strong>
+              <input id="pdf-file" type="file" accept="application/pdf,.pdf" />
+            </label>
+          </fieldset>
+
+          <fieldset class="input-panel is-hidden" data-panel="images">
+            <label class="drop-zone">
+              <span>Fronte</span>
+              <strong id="front-name">Seleziona foto fronte</strong>
+              <input id="front-file" type="file" accept="image/jpeg,image/png" capture="environment" />
+            </label>
+            <label class="drop-zone">
+              <span>Retro</span>
+              <strong id="back-name">Seleziona foto retro</strong>
+              <input id="back-file" type="file" accept="image/jpeg,image/png" capture="environment" />
+            </label>
+          </fieldset>
+
+          <section class="settings" aria-label="Impostazioni PDF">
+            <label>
+              Formato
+              <select id="page-size">
+                <option value="a4">A4</option>
+                <option value="letter">Letter</option>
+              </select>
+            </label>
+
+            <label>
+              Margine
+              <input id="margin" type="range" min="0" max="72" value="24" />
+              <output id="margin-value" for="margin">24 pt</output>
+            </label>
+          </section>
+
+          <button id="convert-button" class="primary-action" type="submit">Crea PDF</button>
+        </form>
+
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+  </body>
+</html>
